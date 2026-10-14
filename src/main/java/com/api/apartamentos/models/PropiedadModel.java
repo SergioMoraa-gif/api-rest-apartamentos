@@ -70,8 +70,6 @@ public class PropiedadModel {
     public void setLongitud(double value) { longitud = value; }
     public BigDecimal getPrecioNoche() { return precioNoche; }
     public void setPrecioNoche(BigDecimal value) { precioNoche = value; }
-    public BigDecimal getPrecio_noche() { return precioNoche; }
-    public void setPrecio_noche(BigDecimal value) { precioNoche = value; }
     public int getCapacidad() { return capacidad; }
     public void setCapacidad(int value) { capacidad = value; }
     public int getNumHabitaciones() { return numHabitaciones; }

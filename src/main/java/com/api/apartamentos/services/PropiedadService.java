@@ -5,17 +5,21 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.api.apartamentos.models.ClienteModel;
 import com.api.apartamentos.models.PropiedadModel;
+import com.api.apartamentos.repositories.IClienteRepository;
 import com.api.apartamentos.repositories.IPropiedadRepository;
 
 @Service
 public class PropiedadService extends BaseCrudService<PropiedadModel> {
 
     private final IPropiedadRepository propiedadRepository;
+    private final IClienteRepository clienteRepository;
 
-    public PropiedadService(IPropiedadRepository propiedadRepository) {
+    public PropiedadService(IPropiedadRepository propiedadRepository, IClienteRepository clienteRepository) {
         super(propiedadRepository);
         this.propiedadRepository = propiedadRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     public List<PropiedadModel> getAllPropiedades() {
@@ -27,6 +31,13 @@ public class PropiedadService extends BaseCrudService<PropiedadModel> {
     }
 
     public PropiedadModel savePropiedad(PropiedadModel propiedad) {
+        // desde la API solo llega el id del propietario, se busca completo en la BD
+        if (propiedad.getPropietario() == null || propiedad.getPropietario().getId() == null) {
+            throw new IllegalArgumentException("El propietario es obligatorio");
+        }
+        ClienteModel propietario = clienteRepository.findById(propiedad.getPropietario().getId())
+                .orElseThrow(() -> new IllegalArgumentException("El propietario no existe"));
+        propiedad.setPropietario(propietario);
         return save(propiedad);
     } 
     
