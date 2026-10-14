@@ -127,6 +127,8 @@ Con los mismos métodos CRUD (GET, GET por id, POST, PUT, DELETE):
 
 Orden recomendado para probar: cliente → propiedad → unidad → reserva → pago.
 
+En `docs/api-apartamentos.postman_collection.json` está la colección de Postman con todas las pruebas (incluye los casos de error). Se importa en Postman con **Import** y se ejecuta en orden.
+
 ### Crear cliente
 `POST /api/clientes`
 ```json
@@ -197,12 +199,12 @@ Respuesta `201 Created` (la contraseña se guarda encriptada y no se muestra):
 {
   "unidad": { "idUnidad": 1 },
   "cliente": { "id": 1 },
-  "fechaEntrada": "2026-11-01T15:00:00",
-  "fechaSalida": "2026-11-04T12:00:00",
+  "fechaEntrada": "2026-11-01T14:00:00",
+  "fechaSalida": "2026-11-04T14:00:00",
   "comentario": "Llegamos en la tarde"
 }
 ```
-El `importeTotal` se calcula solo (precio por noche × número de noches).
+El `importeTotal` se calcula solo (precio por noche × número de noches): 600 × 3 = 1800.
 
 ### Registrar pago
 `POST /api/pagos`
